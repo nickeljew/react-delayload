@@ -1,6 +1,6 @@
 {
   "name": "react-delayload",
-  "description": "A library like Lazyload for React, and also offering a compatible function for DOM manipulation with vanila javascript.",
+  "description": "A library offering delay-loading of images for React, same as Lazyload for jQuery. Moreover, offering a compatible function using pure javascript for manipulating HTML content directly.",
   "url": "https://github.com/nickeljew/react-delayload",
   "homepage": "https://github.com/nickeljew/react-delayload",
   "keywords": [
