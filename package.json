@@ -19,7 +19,7 @@
   "main": "src/delayload.js",
   "scripts": {
     "grunt": "grunt"
-  }
+  },
   "dependencies": {
     "lodash": "^3.10.1"
   },

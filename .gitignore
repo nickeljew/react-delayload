@@ -1,12 +1,6 @@
 
-.idea/.name
+.idea
 
-.idea/misc.xml
+lib
 
-.idea/modules.xml
-
-.idea/react-delayload.iml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
+node_modules
