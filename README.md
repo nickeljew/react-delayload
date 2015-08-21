@@ -1,2 +1,3 @@
 # React-DelayLoad
-A library like Lazyload for React, and also offering a compatible function for DOM manipulation with vanila javascript.
+A library offering delay-loading of images for React, same as Lazyload for jQuery.
+Moreover, offering a compatible function using pure javascript for manipulating HTML content directly.

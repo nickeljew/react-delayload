@@ -1,0 +1,42 @@
+{
+  "name": "react-delayload",
+  "description": "A library like Lazyload for React, and also offering a compatible function for DOM manipulation with vanila javascript.",
+  "url": "https://github.com/nickeljew/react-delayload",
+  "homepage": "https://github.com/nickeljew/react-delayload",
+  "keywords": [
+    "react",
+    "react-component",
+    "load",
+    "delay",
+    "lazy",
+    "lazyload",
+    "delayload"
+  ],
+  "author": "Nickel Jianhui Zhu <nickel.jew@gmail.com>",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": false,
+  "main": "src/delayload.js",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
+  "peerDependencies": {
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^5.0.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-webpack": "^1.0.11",
+    "uglify-loader": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickeljew/react-delayload.git"
+  }
+}
