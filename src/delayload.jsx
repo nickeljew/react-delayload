@@ -2,30 +2,33 @@ import throttle from 'lodash/function/throttle'
 import React from 'react'
 
 
-let throttle_ms = 200
+let throttle_ms = 100
 
 
 
 const DelayLoad = React.createClass({
     propTypes: {
-        doLazy: React.PropTypes.bool
+        enableDelay: React.PropTypes.bool
         , height: React.PropTypes.number
         , threshold: React.PropTypes.number
     }
     , getDefaultProps() {
         return {
-            doLazy: true
+            enableDelay: true
             , height: 0
             , threshold: 0
         }
     }
     , getInitialState() {
         return {
-            visible: !this.props.doLazy
+            visible: !this.props.enableDelay
         }
     }
     , componentDidMount() {
-        if (this.props.doLazy && window.addEventListener) {
+        if (!this.state.visible)
+            this.checkVisible()
+
+        if (this.props.enableDelay && window.addEventListener) {
             window.addEventListener('scroll', this.checkVisible)
             window.addEventListener('resize', this.checkVisible)
         }
@@ -35,11 +38,11 @@ const DelayLoad = React.createClass({
     }
     , componentDidUpdate: function() {
         if (!this.state.visible)
-            this.checkVisible();
+            this.checkVisible()
     }
 
     , onLoaded() {
-        if (this.props.doLazy && window.removeEventListener) {
+        if (this.props.enableDelay && window.removeEventListener) {
             window.removeEventListener('scroll', this.checkVisible)
             window.removeEventListener('resize', this.checkVisible)
         }
@@ -54,18 +57,20 @@ const DelayLoad = React.createClass({
     , render: function () {
         let style = {}
 
-        if (this.props.height > 0) {
+        if (this.props.height > 0 && !this.state.visible) {
             style.height = this.props.height
         }
         if (this.props.style) {
             style = extend(style, this.props.style)
         }
 
+        let cssClass = this.props.className || ''
+
         return (
-            <div style={style} className={this.props.className}>
+            <div style={style} className={cssClass}>
                 {this.state.visible ? this.props.children : ''}
             </div>
-        );
+        )
     }
 })
 
@@ -87,12 +92,12 @@ export default DelayLoad
 
 
 
-let __LazyElements = [], __domReadyInitLazyload = false
-export const lazyload = (el, options) => {
+let _Elements = [], _DOMReadyInit = false
+export const delayload = (el, options) => {
     if (!el)
         return false
 
-    __LazyElements.push(el)
+    _Elements.push(el)
 
     let settings = {
         threshold: 0
@@ -104,7 +109,7 @@ export const lazyload = (el, options) => {
     let checkEmptyTime = 0
 
     let checkVisible = throttle(function () {
-        let elements = __LazyElements.slice(0)
+        let elements = _Elements.slice(0)
         if (elements.length === 0 && ++checkEmptyTime >= 3) {
             if (window.removeEventListener) {
                 window.removeEventListener('scroll', checkVisible)
@@ -126,8 +131,8 @@ export const lazyload = (el, options) => {
                 }
             }
         }
-        if (elements.length !== __LazyElements.length) {
-            __LazyElements = elements
+        if (elements.length !== _Elements.length) {
+            _Elements = elements
         }
     }, throttle_ms)
 
@@ -149,8 +154,8 @@ export const lazyload = (el, options) => {
         window.addEventListener('resize', checkVisible)
     }
 
-    if (!__domReadyInitLazyload) {
-        __domReadyInitLazyload = true
+    if (!_DOMReadyInit) {
+        _DOMReadyInit = true
         document.addEventListener("DOMContentLoaded"
             , function() {
                 checkVisible()
@@ -162,7 +167,32 @@ export const lazyload = (el, options) => {
 }
 
 
-export const setThrottleMS = (ms) => {
+export const setThrottleMilliseconds = (ms) => {
     if (ms > 30)
         throttle_ms = ms
+}
+
+
+
+
+
+function inviewport(el, threshold) {
+    if (typeof threshold !== 'number')
+        threshold = 0
+
+    let winHeight = window.innerHeight
+        || document.documentElement.clientHeight
+        || document.body.clientHeight
+    let winWidth = window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth
+    let rect = el.getBoundingClientRect()
+    let validRect = {
+        top: rect.top - threshold
+        , left: rect.left - threshold
+        , right: rect.right + threshold
+        , bottom: rect.bottom + threshold
+    }
+
+    return (validRect.right > 0) && (validRect.bottom > 0) && (validRect.top < winHeight) && (validRect.left < winWidth)
 }

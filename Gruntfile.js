@@ -1,6 +1,7 @@
 "use strict";
 
 var webpack_dev = require('./webpack.config')
+var extend = require('util')._extend
 
 module.exports = function(grunt) {
     grunt.initConfig({
@@ -42,11 +43,14 @@ module.exports = function(grunt) {
         , babel: {
             options: {
                 comments: false
-                , modules: 'common'
+                , modules: 'amd'
                 , moduleIds: true
                 , getModuleId: function(moduleName) {
                     if (moduleName.match(/\/delayload$/)) {
                         return 'react-delayload'
+                    }
+                    else if (moduleName.match(/\/test/i)) {
+                        return 'main'
                     }
                     return false
                 }

@@ -1,17 +1,16 @@
 var webpack = require('webpack')
-var path = require("path")
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
+var path = require('path')
+//var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
 
 
 module.exports = {
     entry: {
-        delayload: './src/delayload'
+        main: './example/test.jsx'
     }
     , output: {
-        path: path.resolve('dist')
+        path: path.resolve('example/res/scripts')
         , filename: '[name].js'
-        , library: '[name].lib.js'
-        , libraryTarget: 'commonjs2'
+        //, libraryTarget: 'commonjs2'
     }
     , resolve: {
         extensions: ['', '.js', '.jsx']
@@ -19,7 +18,7 @@ module.exports = {
         , modulesDirectories: ['node_modules', 'src']
     }
     , externals: {
-        react: 'react'
+        react: 'React'
     }
     , module: {
         loaders: [{
@@ -28,20 +27,13 @@ module.exports = {
             , loader: 'babel'
             , query: {
                 comments: false
+                , sourceMaps: true
                 //, modules: 'umd'
-                , moduleIds: true
-                , getModuleId: function(moduleName) {
-                    if (moduleName.match(/\/delayload$/)) {
-                        return 'react-delayload'
-                    }
-                    return false
-                }
-                //, sourceMaps: true
-                //, code: false
             }
         }]
     }
-    , watch: true
+    //, watch: true
+    , target: 'web'
     , plugins: [
         //new CommonsChunkPlugin('common.js')
     ]
