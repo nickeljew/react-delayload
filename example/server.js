@@ -25,8 +25,10 @@
     //app.use('/', require('./routes/index')(express))
 
     app.get('/', function(req, res, next) {
-        //res.send('Hello World')
         res.render('test')
+    })
+    app.get('/dom', function(req, res, next) {
+        res.render('test-dom')
     })
 
 

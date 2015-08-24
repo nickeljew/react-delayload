@@ -80,7 +80,7 @@ module.exports = function(grunt) {
             all: ["./dist/*.js"]
         }
         , webpack: {
-            dev: webpack_dev
+            example: webpack_dev
         }
     })
 
@@ -102,7 +102,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('clean', ['clean:all'])
 
-    grunt.registerTask('wp', ['webpack:dev'])
-    grunt.registerTask('wp-dev', ['webpack:dev', 'watch:jsx'])
+    grunt.registerTask('wp', ['webpack:example'])
 
 }

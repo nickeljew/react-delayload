@@ -6,6 +6,7 @@ var path = require('path')
 module.exports = {
     entry: {
         main: './example/test.jsx'
+        , main2: './example/test-dom.jsx'
     }
     , output: {
         path: path.resolve('example/res/scripts')

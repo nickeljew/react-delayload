@@ -12,13 +12,14 @@
     "lazyload",
     "delayload"
   ],
-  "author": "Nickel Jianhui Zhu <nickel.jew@gmail.com>",
+  "author": "Nickel Jianhui Zhu <nickeljew@hotmail.com>",
   "version": "0.1.0",
   "license": "MIT",
   "private": false,
   "main": "src/delayload.js",
   "scripts": {
-    "grunt": "grunt"
+    "build": "grunt wp"
+    , "run": "node ./example/server.js"
   },
   "dependencies": {
     "lodash": "^3.10.1"

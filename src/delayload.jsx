@@ -126,6 +126,8 @@ export const delayload = (el, options) => {
                 let src = elem.getAttribute('data-' + settings.data_attribute)
                 if (elem.tagName.toLowerCase() === 'img') {
                     elem.setAttribute('src', src)
+                    if (+(settings.height) > 0)
+                        elem.style.height = 'auto'
                 } else {
                     elem.style.backgroundImage = "url('" + src + "')"
                 }
@@ -141,6 +143,10 @@ export const delayload = (el, options) => {
         let src = el.getAttribute('src')
         if (src) {
             el.setAttribute('data-' + settings.data_attribute, src)
+            el.setAttribute('src', '')
+            if (+(settings.height) > 0) {
+                el.style.height = settings.height + 'px'
+            }
         }
     } else {
         let bgimg = el.style.backgroundImage
@@ -154,14 +160,7 @@ export const delayload = (el, options) => {
         window.addEventListener('resize', checkVisible)
     }
 
-    if (!_DOMReadyInit) {
-        _DOMReadyInit = true
-        document.addEventListener("DOMContentLoaded"
-            , function() {
-                checkVisible()
-            }
-            , false)
-    }
+    checkVisible()
 
     return el
 }
@@ -195,4 +194,48 @@ function inviewport(el, threshold) {
     }
 
     return (validRect.right > 0) && (validRect.bottom > 0) && (validRect.top < winHeight) && (validRect.left < winWidth)
+}
+
+
+
+
+function extend(base, override) {
+
+    let mergedObject = {}
+
+    let isObject = (arg) => {
+        return typeof arg === 'object' && arg !== null;
+    }
+
+    //Loop through each key in the base object
+    Object.keys(base).forEach(function(key) {
+
+        let baseProp = base[key]
+        let overrideProp
+
+        if (isObject(override)) overrideProp = override[key]
+
+        //Recursive call extend if the prop is another object, else just copy it over
+        mergedObject[key] = isObject(baseProp) && !Array.isArray(baseProp) ?
+            extend(baseProp, overrideProp) : baseProp
+
+    })
+
+    //Loop through each override key and override the props in the
+    //base object
+    if (isObject(override)) {
+
+        Object.keys(override).forEach(function(overrideKey) {
+
+            let overrideProp = override[overrideKey]
+
+            //Only copy over props that are not objects
+            if (!isObject(overrideProp) || Array.isArray(overrideProp)) {
+                mergedObject[overrideKey] = overrideProp;
+            }
+
+        })
+    }
+
+    return mergedObject
 }
