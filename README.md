@@ -48,7 +48,7 @@ using plain javascript, and there is no need to require jQuery.
 ####DOM
 
 ```
-	import {delayload as _delayload} from 'react-delayload'
+	import {delayload} from 'react-delayload'
 ```
 
 ```
@@ -56,7 +56,7 @@ using plain javascript, and there is no need to require jQuery.
         let images = React.findDOMNode(this.refs.raw).querySelectorAll("img")
         // images is not a real array, and using forEach will not work
         for (let i = 0; i < images.length; ++i) {
-            _delayload(images[i])
+            delayload(images[i])
         }
     }
 ```

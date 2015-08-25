@@ -1,5 +1,5 @@
 import React from 'react'
-import {delayload as _delayload} from '../src/delayload.jsx'
+import {delayload} from '../src/delayload.jsx'
 
 
 let Main = React.createClass({
@@ -11,7 +11,7 @@ let Main = React.createClass({
         let images = React.findDOMNode(this.refs.raw).querySelectorAll("img")
         // images is not a real array, and using forEach will not work
         for (let i = 0; i < images.length; ++i) {
-            _delayload(images[i], {
+            delayload(images[i], {
                 height: 600
                 //, threshold: 300
             })
