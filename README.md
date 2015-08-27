@@ -82,6 +82,4 @@ DEMO Links
 
 ##License
 
-Copyright (c) 2012-2015 Tobias Koppers
-
 MIT (http://www.opensource.org/licenses/mit-license.php)

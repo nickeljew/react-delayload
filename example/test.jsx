@@ -1,5 +1,5 @@
 import React from 'react'
-import * as ReactDelayLoad from '../src/delayload.jsx'
+import * as ReactDelayLoad from '../src/delayload'
 let DelayLoad = ReactDelayLoad['default']
 
 

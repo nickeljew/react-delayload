@@ -11,6 +11,7 @@ module.exports = {
     , output: {
         path: path.resolve('example/res/scripts')
         , filename: '[name].js'
+        //, library: '[name]'
         //, libraryTarget: 'commonjs2'
     }
     , resolve: {

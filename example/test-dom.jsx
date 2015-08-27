@@ -1,5 +1,5 @@
 import React from 'react'
-import {delayload} from '../src/delayload.jsx'
+import {delayload} from '../src/delayload'
 
 
 let Main = React.createClass({
