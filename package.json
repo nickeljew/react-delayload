@@ -18,7 +18,7 @@
   "private": false,
   "main": "lib/delayload.js",
   "scripts": {
-    "install": "grunt babel",
+    "install": "babel ./src --out-dir ./lib",
     "prebuild": "rm -rf lib && rm example/res/scripts/main*.js",
     "build": "grunt babel && grunt webpack",
     "prepublish": "npm run build",
