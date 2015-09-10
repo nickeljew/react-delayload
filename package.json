@@ -13,7 +13,7 @@
     "delayload"
   ],
   "author": "Nickel Jianhui Zhu <nickeljew@hotmail.com>",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "private": false,
   "main": "lib/delayload.js",
