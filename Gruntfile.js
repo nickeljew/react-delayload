@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         , babel: {
             options: {
                 comments: false
-                , modules: 'amd'
+                //, modules: 'amd'
                 , moduleIds: true
                 , getModuleId: function(moduleName) {
                     if (moduleName.match(/\/delayload$/)) {

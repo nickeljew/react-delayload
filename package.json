@@ -13,15 +13,16 @@
     "delayload"
   ],
   "author": "Nickel Jianhui Zhu <nickeljew@hotmail.com>",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "private": false,
   "main": "lib/delayload.js",
   "scripts": {
+    "install": "grunt babel",
     "prebuild": "rm -rf lib && rm example/res/scripts/main*.js",
     "build": "grunt babel && grunt webpack",
     "prepublish": "npm run build",
-    "start": "node ./example/server.js"
+    "pretest": "node ./example/server.js"
   },
   "dependencies": {
     "lodash": "^3.10.1"
