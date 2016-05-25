@@ -21,8 +21,8 @@
     "_install": "babel ./src --out-dir ./lib",
     "_prebuild": "rm -rf lib && rm example/res/scripts/main*.js",
     "_build": "grunt babel && grunt webpack",
-    "prepublish": "npm run build",
-    "pretest": "node ./example/server.js"
+    "_prepublish": "npm run build",
+    "_pretest": "node ./example/server.js"
   },
   "babel": {
     "plugins": [

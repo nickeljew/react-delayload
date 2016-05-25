@@ -6,3 +6,4 @@ node_modules
 example/res/scripts/main.js
 
 example/res/scripts/main2.js
+npm-debug.log
