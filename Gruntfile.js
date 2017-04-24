@@ -20,26 +20,26 @@ module.exports = function(grunt) {
                 files: {}
             }
         }
-        , uglify: {
-            common: {
-                options: {
-                    banner: '<%= tag.banner %>'
-                    , mangle : {
-                        except : ['require', 'exports', 'module', 'jQuery', 'jquery', 'React']
-                    }
-                    //, sourceMap: true
-                }
-                , files: [
-                    {
-                        expand: true
-                        , cwd: './src'
-                        , src: [ './src/delayload.js' ]
-                        , dest: './dist/'
-                        , ext: '.min.js'
-                    }
-                ]
-            }
-        }
+        //, uglify: {
+        //    common: {
+        //        options: {
+        //            banner: '<%= tag.banner %>'
+        //            , mangle : {
+        //                except : ['require', 'exports', 'module', 'jQuery', 'jquery', 'React']
+        //            }
+        //            //, sourceMap: true
+        //        }
+        //        , files: [
+        //            {
+        //                expand: true
+        //                , cwd: './src'
+        //                , src: [ './src/delayload.js' ]
+        //                , dest: './dist/'
+        //                , ext: '.min.js'
+        //            }
+        //        ]
+        //    }
+        //}
         , babel: {
             options: {
                 comments: false
@@ -86,19 +86,15 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-watch')
     grunt.loadNpmTasks('grunt-contrib-concat')
-    grunt.loadNpmTasks('grunt-contrib-uglify')
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-babel')
     grunt.loadNpmTasks('grunt-webpack')
 
 
-    grunt.registerTask('default', ['babel'])
-    grunt.registerTask('dev', ['babel', 'watch:react'])
+    grunt.registerTask('default', ['babel', 'webpack:example'])
+    grunt.registerTask('dev', ['babel', 'webpack:example', 'watch'])
 
-    grunt.registerTask('build', [
-        'babel'
-        , 'uglify:common'
-    ])
+    grunt.registerTask('build', ['babel'])
 
     grunt.registerTask('clean', ['clean:all'])
 

@@ -8,7 +8,10 @@ using plain javascript, and there is no need to require jQuery.
 
 ## Installation
 
-	npm install react-delayload --save-dev
+	yarn add react-picker
+or
+
+	npm install react-picker --save
 
 ## Example
 

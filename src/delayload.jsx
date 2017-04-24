@@ -1,30 +1,38 @@
+'use strict';
+
+import { Component } from 'react'
+import PropTypes from 'prop-types'
+import { findDOMNode } from 'react-dom'
 import throttle from 'lodash/function/throttle'
-import React from 'react'
 
 
 let throttle_ms = 100
 
+const isBrowser = (typeof window !== "undefined" && typeof document !== "undefined")
 
 
-const DelayLoad = React.createClass({
-    propTypes: {
-        enableDelay: React.PropTypes.bool
-        , height: React.PropTypes.number
-        , threshold: React.PropTypes.number
-    }
-    , getDefaultProps() {
-        return {
-            enableDelay: true
-            , height: 0
-            , threshold: 0
-        }
-    }
-    , getInitialState() {
-        return {
+class DelayLoad extends Component {
+    constructor(props, context) {
+        super(props, context)
+
+        this.state = {
             visible: !this.props.enableDelay
         }
+
+        const func = throttle(function() {
+            if ( inviewport(findDOMNode(this), this.props.threshold) ) {
+                this.setState({visible: true})
+                this.onLoaded()
+            }
+        }, throttle_ms)
+
+        this.checkVisible = func.bind(this)
     }
-    , componentDidMount() {
+
+    componentDidMount() {
+        if (!isBrowser)
+            return
+
         if (!this.state.visible)
             this.checkVisible()
 
@@ -33,28 +41,22 @@ const DelayLoad = React.createClass({
             window.addEventListener('resize', this.checkVisible)
         }
     }
-    , componentWillUnmount() {
-        this.onLoaded();
+    componentWillUnmount() {
+        this.onLoaded()
     }
-    , componentDidUpdate: function() {
-        if (!this.state.visible)
+    componentDidUpdate () {
+        if (isBrowser && !this.state.visible)
             this.checkVisible()
     }
 
-    , onLoaded() {
-        if (this.props.enableDelay && window.removeEventListener) {
+    onLoaded() {
+        if (isBrowser && this.props.enableDelay && window.removeEventListener) {
             window.removeEventListener('scroll', this.checkVisible)
             window.removeEventListener('resize', this.checkVisible)
         }
     }
-    , checkVisible: throttle(function () {
-        if ( inviewport(this.getDOMNode(), this.props.threshold) ) {
-            this.setState({visible: true})
-            this.onLoaded()
-        }
-    }, throttle_ms)
 
-    , render: function () {
+    render() {
         let style = {}
 
         if (this.props.height > 0 && !this.state.visible) {
@@ -72,7 +74,20 @@ const DelayLoad = React.createClass({
             </div>
         )
     }
-})
+
+}
+
+
+DelayLoad.propTypes = {
+    enableDelay: PropTypes.bool
+    , height: PropTypes.number
+    , threshold: PropTypes.number
+}
+DelayLoad.defaultProps = {
+    enableDelay: true
+    , height: 0
+    , threshold: 0
+}
 
 export default DelayLoad
 
@@ -167,7 +182,7 @@ export const delayload = (el, options) => {
 
 
 export const setThrottleMilliseconds = (ms) => {
-    if (ms > 30)
+    if (typeof ms === 'number' && ms > 30)
         throttle_ms = ms
 }
 
@@ -176,7 +191,10 @@ export const setThrottleMilliseconds = (ms) => {
 
 
 function inviewport(el, threshold) {
-    if (typeof threshold !== 'number')
+    if (!isBrowser)
+        return false
+
+    if (typeof threshold !== 'number' || isNaN(threshold))
         threshold = 0
 
     let winHeight = window.innerHeight

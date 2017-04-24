@@ -1,0 +1,7 @@
+*.md
+.git*
+Gruntfile.js
+webpack.config.js
+src/
+test/
+examples/
