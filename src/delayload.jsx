@@ -3,7 +3,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { findDOMNode } from 'react-dom'
-import throttle from 'lodash/function/throttle'
+import { throttle } from 'lodash'
 
 
 let throttle_ms = 100
